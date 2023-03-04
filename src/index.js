@@ -22,10 +22,10 @@ function onInputChange() {
     fetchCountries(searchCountryName)
       .then(countryNames => {
         if (countryNames.length < 2) {
-          createCoutryCard(countryNames);
+          createCountryCard(countryNames);
           Notiflix.Notify.success('This is your result');
         } else if (countryNames.length < 10 && countryNames.length > 1) {
-          createCoutryList(countryNames);
+          createCountryList(countryNames);
           Notiflix.Notify.success('This is your results');
         } else {
           clearAll();
@@ -38,4 +38,31 @@ function onInputChange() {
         clearAll();
         Notiflix.Notify.failure('Ooops, there is no country with that name.');
       });
+}
+
+function createCountryCard(country) {
+  clearAll();
+  const c = country[0];
+  const readyCard = `<div class="country-card">
+    <div class="country-card--header">
+            <img src="${
+              c.flags.svg
+            }" alt="Country flag" width="55", height="35">
+            <h2 class="country-card--name"> ${c.name.official}</h2>
+        </div>
+            <p class="country-card--field">Capital: <span class="country-value">${
+              c.capital
+            }</span></p>
+            <p class="country-card--field">Population: <span class="country-value">${
+              c.population
+            }</span></p>
+            <p class="country-card--field">Languages: <span class="country-value">${Object.values(
+              c.languages
+            ).join(',')}</span></p>
+    </div>`;
+  div.innerHTML = readyCard;
+}
+
+function createCountryList(country) {
+  clearAll();
 }
